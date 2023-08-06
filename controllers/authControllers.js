@@ -42,6 +42,7 @@ const register = async (req, res) => {
         password: hash,
       }).then((user) => {
         console.log('user created successfully');
+        res.json(user);
       });
     });
   } catch (err) {

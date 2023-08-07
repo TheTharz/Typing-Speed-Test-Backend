@@ -5,11 +5,11 @@ const cors = require('cors');
 router.use(
   cors({
     credentials: true,
-    origin: 'http://localhost:5174',
+    origin: 'http://localhost:5173',
   })
 );
 
 router.get('/', test);
 router.post('/register', register);
-router.get('/login', login);
+router.post('/login', login);
 module.exports = router;

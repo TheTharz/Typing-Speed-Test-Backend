@@ -51,24 +51,31 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { email, password } = req.body;
-
-  //checking email
-  const user = await User.findOne({ email: email });
-
-  if (!user) {
-    return res.json({ error: 'User not found' });
-  }
-
-  //checking password
-  bcrypt.compare(password, user.password).then((match) => {
-    if (!match) {
-      return res.json({ error: 'Invalid password or email' });
+  try {
+    const { email, password } = req.body;
+    //console.log('Received email:', email);
+    //console.log('Received password:', password);
+    //checking email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ error: 'User not found' });
     }
-    const acessToken = createToken(user);
-    res.cookie('acessToken', acessToken, { maxAge: 1000 * 60 * 60 * 24 * 30 });
-    res.json('Logged in successfully');
-  });
+
+    //checking password
+    await bcrypt.compare(password, user.password).then((match) => {
+      if (!match) {
+        return res.json({ error: 'Invalid password or email' });
+      }
+      const acessToken = createToken(user);
+      res.cookie('acessToken', acessToken, {
+        maxAge: 1000 * 60 * 60 * 24 * 30,
+        httpOnly: true,
+      });
+      res.json({ token: acessToken, user: user });
+    });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = { test, register, login };

@@ -4,6 +4,7 @@ const { test, register, login } = require('../controllers/authControllers');
 const cors = require('cors');
 router.use(
   cors({
+    //this is used to connect client and server without errors
     credentials: true,
     origin: 'http://localhost:5173',
   })

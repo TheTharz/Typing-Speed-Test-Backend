@@ -14,6 +14,10 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
+  test_results: {
+    type: Array,
+    default: [],
+  },
 });
 
 const UserModel = mongoose.model('User', UserSchema);

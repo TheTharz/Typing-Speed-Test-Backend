@@ -13,4 +13,5 @@ router.use(
 router.get('/', test);
 router.post('/register', register);
 router.post('/login', login);
+//write the functions for typing test parts
 module.exports = router;

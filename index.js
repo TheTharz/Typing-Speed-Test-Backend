@@ -14,6 +14,13 @@ mongoose
     console.log('Error connecting to MongoDB', err);
   });
 
+app.use(
+  cors({
+    //this is used to connect client and server without errors
+    credentials: true,
+    origin: 'http://localhost:5173',
+  })
+);
 app.use(express.urlencoded({ extended: false }));
 
 const authRoute = require('./routes/authRouts');

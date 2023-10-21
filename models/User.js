@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const TestResultsSchema = require('./TestResults');
 const UserSchema = new Schema({
   username: {
     type: String,
@@ -14,10 +15,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  test_results: {
-    type: Array,
-    default: [],
-  },
+  test_results: [TestResultsSchema],
 });
 
 const UserModel = mongoose.model('User', UserSchema);

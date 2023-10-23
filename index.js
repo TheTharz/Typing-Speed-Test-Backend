@@ -3,6 +3,8 @@ const { mongoose } = require('mongoose');
 const dotenv = require('dotenv').config();
 const cors = require('cors');
 const app = express();
+const authRoute = require('./routes/authRouts');
+const testResultRoute = require('./routes/testResultRoutes');
 
 //database connection
 mongoose
@@ -23,9 +25,9 @@ app.use(
 );
 app.use(express.urlencoded({ extended: false }));
 
-const authRoute = require('./routes/authRouts');
 app.use(express.json());
 app.use('/', authRoute);
+app.use('/testResult', testResultRoute);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server listening on port ${port}!`));

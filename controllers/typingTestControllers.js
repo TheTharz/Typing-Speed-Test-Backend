@@ -21,4 +21,15 @@ const updateTestResults = async (req, res) => {
   }
 };
 
-module.exports = { updateTestResults };
+const getTestResults = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const user = await User.findById(id);
+    const testResults = user.test_results;
+    res.status(200).json({ message: 'Test results fetched', testResults });
+  } catch (err) {
+    res.status(500).json({ message: 'Internal server error', err });
+  }
+};
+
+module.exports = { updateTestResults, getTestResults };
